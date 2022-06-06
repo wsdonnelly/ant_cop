@@ -6,7 +6,7 @@
 /*   By: wdonnell <wdonnell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 14:10:25 by wdonnell          #+#    #+#             */
-/*   Updated: 2022/06/06 12:06:52 by wdonnell         ###   ########.fr       */
+/*   Updated: 2022/06/06 13:36:47 by wdonnell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ void add_to_arr(char *line, char **arr, int *ants_arr, int num_ants)
 			j++;
 		}
 		info = ft_strsplit(ln[i], '-');
-		if (ants_arr[j])
+		if (ants_arr[atoi(&info[0][1]) - 1])
 		{
 			//same ant on same line
+			printf("same ant on same line\n");
 			exit(0);
 		}
 		ants_arr[atoi(&info[0][1]) - 1] = 1;
@@ -49,11 +50,12 @@ void add_to_arr(char *line, char **arr, int *ants_arr, int num_ants)
 		j = 0;
 		while (j < num_ants)
 		{
-			if (info[1][0] == arr[j][0])
+			if (info[1][0] == arr[j][0] && strcmp(info[1], ))
 			{
 				if (!strcmp(info[1], arr[j]))
 				{
 					//same room on same line
+					printf("same room on same line\n");
 					exit(0);
 				}
 			}
@@ -96,6 +98,8 @@ int	main()
 	int *ants_arr;
 	int i = 0;
 	char *p;
+	char *start;
+	char *end;
 
 	getline(&line, &n, stdin);
 	num_ants = atoi(line);
@@ -110,8 +114,12 @@ int	main()
 	{
 		if((p = strchr(line, '\n')))
 			*p = '\0';
-		//printf("line: %s", line);
-		if (line[0] == 'L')
+		//get start and end
+		if ()
+		{
+
+		}
+		else if (line[0] == 'L')
 		{
 			add_to_arr(line, arr, ants_arr, num_ants);
 			//if (!ants_in_same_room(line, arr))
