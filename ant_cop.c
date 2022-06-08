@@ -30,37 +30,8 @@
       (__/   \__)
 *************************
 */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-#define GREEN	= "\x1b[32m"
-#define RED		= "\x1b[31m"
-#define EOC		= "\x1b[0m"
-
-typedef struct s_list
-{
-	char *room1;
-	char *room2;
-	struct s_list *next;
-}				t_list;
-
-char	**ft_strsplit(char const *s, char c);
-void	free_str_arr(char **arr);
-
-void free_list(t_list *head)
-{
-	t_list *temp;
-
-	while (head)
-	{
-		temp = head;
-		free(head->room1);
-		free(head->room2);
-		head = head->next;
-		free(temp);
-	}
-}
+#include "ant_cop.h"
 
 int valid_path(char *rm_prev, char *rm_cur, t_list *head)
 {
@@ -114,6 +85,7 @@ void add_to_arr(char *line, char **arr, int *ants_arr, int num_ants, char *start
 		
 		if (!valid_path(arr[atoi(&ant_room[0][1]) - 1], ant_room[1], head))
 		{
+				printf("%s %s\n",arr[atoi(&ant_room[0][1]) - 1], ant_room[1]);
 				printf("\x1b[31mERROR: invalid path\x1b[0m\n");
 				exit (0);
 		}
@@ -127,6 +99,9 @@ void add_to_arr(char *line, char **arr, int *ants_arr, int num_ants, char *start
 				{
 					if (!strcmp(ant_room[1], arr[j]))
 					{
+						printf("%s -> %s\n", ant_room[1], arr[j] );
+						//printf("%s\n", line);
+						
 						printf("\x1b[31mERROR: same room on same line\x1b[0m\n");
 						exit(0);
 					}
@@ -139,21 +114,8 @@ void add_to_arr(char *line, char **arr, int *ants_arr, int num_ants, char *start
 		free(temp);
 		free_str_arr(ant_room);
 		i++;
-		
 	}
 	free_str_arr(ln);
-}
-
-void add_to_list(t_list **head, char *rm1, char *rm2)
-{
-	t_list *temp;
-
-	if(!(temp = malloc(sizeof(t_list))))
-		exit(0);
-	temp->room1 = strdup(rm1);
-	temp->room2 = strdup(rm2);
-	temp->next = *head;
-	*head = temp;
 }
 
 int	main()
@@ -176,8 +138,7 @@ int	main()
 	num_ants = atoi(line);
 	ants_arr = malloc(sizeof(int) * num_ants);
 	arr = malloc(sizeof(char *) * num_ants);
-	while (i < num_ants)
-		arr[i++] = strdup("start");
+	
 	while (getline(&line, &n, stdin) > 0)
 	{
 		if((p = strchr(line, '\n')))
@@ -191,6 +152,8 @@ int	main()
 					*p = '\0';
 				start_end = ft_strsplit(line, ' ');
 				start = strdup(start_end[0]);
+				while (i < num_ants)
+					arr[i++] = strdup(start);
 				free_str_arr(start_end);
 				continue ;
 			}
@@ -217,8 +180,18 @@ int	main()
 			line_count++;
 		}
 	}
-	printf("\x1b[32mALL TESTS PASSED\n\x1b[0m");
-	printf("line count: %d\n", line_count);
+	i = 0;
+	while (i < num_ants)
+	{
+		if (strcmp(end, arr[i]))
+		{
+			printf("\x1b[31mERROR: not all ants at end\x1b[0m\n");
+			exit(0);
+		}
+		i++;
+	}
+	printf("\x1b[32mALL TESTS PASSED\n");
+	printf("line count => %d\n\x1b[0m", line_count);
 	free(line);
 	free(start);
 	free(end);
@@ -228,8 +201,6 @@ int	main()
 	return (0);
 }
 
-//clang -Wall -Wextra -Werror ant_cop.c functions.c -o ant_cop
+//clang -Wall -Wextra -Werror ant_cop.c functions.c ft_strsplit.c -o ant_cop 
 
-//out put num of lines printed
-
-//./lem-in < maps/basic_maps/subject2-1.map | leaks -atExit -- ../ant_cop/./ant_cop
+//./generator --big > test.map && ./lem-in < test.map | ../ant_cop/./ant_cop
