@@ -13,3 +13,6 @@ Or copy the binary to lem-in's root......
 - if the same room appears twice on the same line
 - if each ant takes a valid path
 - if all ants wind up at the end room
+
+## notes:
+This was written "rush style" so there are most likely many bugs, and the code is a bit of a mess. Please let me know if you find something or feel free to send me a pull request
