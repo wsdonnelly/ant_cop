@@ -46,11 +46,8 @@ int valid_path(char *rm_prev, char *rm_cur, t_list *head)
 		b = strcmp(head->room1, rm_cur);
 		c = strcmp(head->room2, rm_prev);
 		d = strcmp(head->room2, rm_cur);
-		if (!a || !c || !b || !d)
-		{
-			if ((!a && !d) || (!b && !c))
-				return (1);
-		}
+		if ((!a && !d) || (!b && !c))
+			return (1);
 		head = head->next;
 	}
 	return (0);
@@ -135,8 +132,8 @@ int	main()
 	getline(&line, &n, stdin);
 	num_ants = atoi(line);
 	ants_arr = malloc(sizeof(int) * num_ants);
-	arr = malloc(sizeof(char *) * num_ants);
-	
+	arr = malloc(sizeof(char *) * num_ants + 1);
+
 	while (getline(&line, &n, stdin) > 0)
 	{
 		if((p = strchr(line, '\n')))
