@@ -199,6 +199,4 @@ int	main()
 	return (0);
 }
 
-//clang -Wall -Wextra -Werror ant_cop.c functions.c ft_strsplit.c -o ant_cop 
-
 //./generator --big > test.map && ./lem-in < test.map | ../ant_cop/./ant_cop
