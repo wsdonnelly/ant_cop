@@ -1,7 +1,9 @@
 run make
+
 -Usage: pipe lem-in's out to ./ant_cop
 
 Example: (from lem_in dir, using the generator to seperate ant_cop dir):
+
 ./generator --big > test.map && ./lem-in < test.map | ../ant_cop/./ant_cop
 
 Or copy the binary to lem-in's root......
