@@ -9,7 +9,7 @@ Example: (from lem_in dir, using the generator to seperate ant_cop dir):
 Or copy the binary to lem-in's root......
 
 # ant_cop will check:
-- if the same ant appears twice on the same
+- if the same ant appears twice on the same line
 - if the same room appears twice on the same line
 - if each ant takes a valid path
 - if all ants wind up at the end room
