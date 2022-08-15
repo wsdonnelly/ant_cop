@@ -53,13 +53,14 @@ int valid_path(char *rm_prev, char *rm_cur, t_list *head)
 	return (0);
 }
 
-void add_to_arr(char *line, char **arr, int *ants_arr, int num_ants, char *start, char *end, t_list *head)
+void add_to_arr(char *line, char **arr, int *ants_arr, int num_ants, char *start, char *end, t_list *head, int *flag)
 {
 	char **ln;
 	char **ant_room;
 	int i = 0;
 	int j;
 	char *temp;
+	
 
 	j = 0;
 	while (j < num_ants)
@@ -74,7 +75,8 @@ void add_to_arr(char *line, char **arr, int *ants_arr, int num_ants, char *start
 		if (ants_arr[atoi(&ant_room[0][1]) - 1])
 		{
 			printf("\x1b[31mERROR: same ant on same line\x1b[0m\n");
-			exit(0);
+			//exit(0);
+			*flag = 1;
 		}
 		ants_arr[atoi(&ant_room[0][1]) - 1] = 1;
 		
@@ -82,7 +84,8 @@ void add_to_arr(char *line, char **arr, int *ants_arr, int num_ants, char *start
 		{
 				printf("%s %s\n",arr[atoi(&ant_room[0][1]) - 1], ant_room[1]);
 				printf("\x1b[31mERROR: invalid path\x1b[0m\n");
-				exit (0);
+				//exit (0);
+				*flag = 1;
 		}
 		
 		j = 0;
@@ -98,7 +101,8 @@ void add_to_arr(char *line, char **arr, int *ants_arr, int num_ants, char *start
 						printf("%s\n", line);
 						
 						printf("\x1b[31mERROR: same room on same line\x1b[0m\n");
-						exit(0);
+						//exit(0);
+						*flag = 1;
 					}
 				}
 			}
@@ -128,6 +132,7 @@ int	main()
 	char **start_end;
 	t_list *head = NULL;
 	char **link;
+	int flag = 0;
 
 	getline(&line, &n, stdin);
 	num_ants = atoi(line);
@@ -171,7 +176,7 @@ int	main()
 		}
 		else if (line[0] == 'L')
 		{
-			add_to_arr(line, arr, ants_arr, num_ants, start, end, head);
+			add_to_arr(line, arr, ants_arr, num_ants, start, end, head, &flag);
 			line_count++;
 		}
 	}
@@ -181,12 +186,16 @@ int	main()
 		if (strcmp(end, arr[i]))
 		{
 			printf("\x1b[31mERROR: not all ants at end\x1b[0m\n");
-			exit(0);
+			//exit(0);
+			flag = 1;
 		}
 		i++;
 	}
-	printf("\x1b[32mALL TESTS PASSED\n");
-	printf("line count => %d\n\x1b[0m", line_count);
+	if (!flag)
+	{
+		printf("\x1b[32mALL TESTS PASSED\n");
+		printf("line count => %d\n\x1b[0m", line_count);
+	}
 	free(line);
 	free(start);
 	free(end);
