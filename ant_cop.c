@@ -138,7 +138,6 @@ int	main()
 	num_ants = atoi(line);
 	ants_arr = malloc(sizeof(int) * num_ants);
 	arr = malloc(sizeof(char *) * num_ants + 1);
-
 	while (getline(&line, &n, stdin) > 0)
 	{
 		if((p = strchr(line, '\n')))
@@ -183,6 +182,10 @@ int	main()
 	i = 0;
 	while (i < num_ants)
 	{
+		//show arr
+		printf("%s ", arr[i]);
+		if (i % 10 == 0)
+			printf("\n");
 		if (strcmp(end, arr[i]))
 		{
 			printf("\x1b[31mERROR: not all ants at end\x1b[0m\n");
