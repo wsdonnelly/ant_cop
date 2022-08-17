@@ -182,15 +182,11 @@ int	main()
 	i = 0;
 	while (i < num_ants)
 	{
-		//show arr
-		printf("%s ", arr[i]);
-		if (i % 10 == 0)
-			printf("\n");
 		if (strcmp(end, arr[i]))
 		{
 			printf("\x1b[31mERROR: not all ants at end\x1b[0m\n");
 			//exit(0);
-			flag = 1;
+			flag = 2;
 		}
 		i++;
 	}
@@ -198,6 +194,23 @@ int	main()
 	{
 		printf("\x1b[32mALL TESTS PASSED\n");
 		printf("line count => %d\n\x1b[0m", line_count);
+	}
+	else if (flag == 2)
+	{
+
+		i = 0;
+		printf("final location of ants:\n");
+		while (i < num_ants)
+		{
+			if (strcmp(end, arr[i]))
+				printf("\x1b[31m%s \x1b[0m", arr[i]);
+			else
+				printf("%s ", arr[i]);
+				if (i % 12 == 11)
+					printf("\n");
+			i++;
+		}
+
 	}
 	free(line);
 	free(start);
