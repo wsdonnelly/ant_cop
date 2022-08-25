@@ -132,7 +132,7 @@ int	main()
 	char **start_end;
 	t_list *head = NULL;
 	char **link;
-	int flag = 0;
+	int flag = -1;
 
 	getline(&line, &n, stdin);
 	num_ants = atoi(line);
@@ -140,6 +140,7 @@ int	main()
 	arr = malloc(sizeof(char *) * num_ants + 1);
 	while (getline(&line, &n, stdin) > 0)
 	{
+		
 		if((p = strchr(line, '\n')))
 			*p = '\0';
 		if (line[0] == '#')
@@ -175,6 +176,7 @@ int	main()
 		}
 		else if (line[0] == 'L')
 		{
+			flag = 0;
 			add_to_arr(line, arr, ants_arr, num_ants, start, end, head, &flag);
 			line_count++;
 		}
@@ -190,7 +192,12 @@ int	main()
 		}
 		i++;
 	}
-	if (!flag)
+	if (flag < 0)
+	{ 
+		printf("\x1b[31mERROR IN MAP\x1b[0m\n");
+		return (0);
+	}
+	else if (!flag)
 	{
 		printf("\x1b[32mALL TESTS PASSED\n");
 		printf("line count => %d\n\x1b[0m", line_count);
@@ -210,7 +217,6 @@ int	main()
 					printf("\n");
 			i++;
 		}
-
 	}
 	free(line);
 	free(start);
@@ -221,4 +227,4 @@ int	main()
 	return (0);
 }
 
-//./generator --big > test.map && ./lem-in < test.map | ../ant_cop/./ant_cop
+//./generator --big-superposition > test.map && ./lem-in < test.map | ../ant_cop/./ant_cop
