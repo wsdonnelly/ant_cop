@@ -132,15 +132,22 @@ int	main()
 	char **start_end;
 	t_list *head = NULL;
 	char **link;
-	int flag = -1;
+	int flag = 0;
 
+	
 	getline(&line, &n, stdin);
+	//printf("line in AC: %s\n", line);
+	if (!line || !strcmp(line, "ERROR\n"))
+	{
+		printf("\x1b[31mERROR in map\x1b[0m\n");
+		free(line);
+		return (0);
+	}
 	num_ants = atoi(line);
 	ants_arr = malloc(sizeof(int) * num_ants);
 	arr = malloc(sizeof(char *) * num_ants + 1);
 	while (getline(&line, &n, stdin) > 0)
 	{
-		
 		if((p = strchr(line, '\n')))
 			*p = '\0';
 		if (line[0] == '#')
@@ -176,7 +183,7 @@ int	main()
 		}
 		else if (line[0] == 'L')
 		{
-			flag = 0;
+			//flag = 0;
 			add_to_arr(line, arr, ants_arr, num_ants, start, end, head, &flag);
 			line_count++;
 		}
@@ -192,19 +199,14 @@ int	main()
 		}
 		i++;
 	}
-	if (flag < 0)
-	{ 
-		printf("\x1b[31mERROR IN MAP\x1b[0m\n");
-		return (0);
-	}
-	else if (!flag)
+
+	if (!flag)
 	{
 		printf("\x1b[32mALL TESTS PASSED\n");
 		printf("line count => %d\n\x1b[0m", line_count);
 	}
 	else if (flag == 2)
 	{
-
 		i = 0;
 		printf("final location of ants:\n");
 		while (i < num_ants)
