@@ -72,6 +72,13 @@ void add_to_arr(char *line, char **arr, int *ants_arr, int num_ants, char *start
 	while (ln[i])
 	{
 		ant_room = ft_strsplit(ln[i], '-');
+		//printf("ant_room[0] %s\n", &ant_room[0][1]);
+		if (!ant_room[0][1])
+		{
+			printf("\x1b[31mERROR: EMPTY ANT\x1b[0m\n");
+			printf("%s\n", ln[i]);
+			exit(0);
+		}
 		if (ants_arr[atoi(&ant_room[0][1]) - 1])
 		{
 			printf("\x1b[31mERROR: same ant on same line\x1b[0m\n");
@@ -79,7 +86,6 @@ void add_to_arr(char *line, char **arr, int *ants_arr, int num_ants, char *start
 			*flag = 1;
 		}
 		ants_arr[atoi(&ant_room[0][1]) - 1] = 1;
-		
 		if (!valid_path(arr[atoi(&ant_room[0][1]) - 1], ant_room[1], head))
 		{
 				printf("%s %s\n",arr[atoi(&ant_room[0][1]) - 1], ant_room[1]);
@@ -220,12 +226,12 @@ int	main()
 			i++;
 		}
 	}
-	free(line);
-	free(start);
-	free(end);
-	free_str_arr(arr);
-	free(ants_arr);
-	free_list(head);
+//	free(line);
+//	free(start);
+//free(end);
+	//free_str_arr(arr);
+//	free(ants_arr);
+//	free_list(head);
 	return (0);
 }
 
