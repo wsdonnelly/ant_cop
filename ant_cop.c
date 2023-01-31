@@ -77,11 +77,13 @@ void add_to_arr(char *line, char **arr, int *ants_arr, int num_ants, char *start
 		{
 			printf("\x1b[31mERROR: EMPTY ANT\x1b[0m\n");
 			printf("%s\n", ln[i]);
-			exit(0);
+			//exit(0);
 		}
 		if (ants_arr[atoi(&ant_room[0][1]) - 1])
 		{
 			printf("\x1b[31mERROR: same ant on same line\x1b[0m\n");
+			printf("%s \n", ant_room[0]);
+			printf("%s\n", line);
 			//exit(0);
 			*flag = 1;
 		}
