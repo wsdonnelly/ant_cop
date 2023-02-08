@@ -236,5 +236,3 @@ int	main()
 //	free_list(head);
 	return (0);
 }
-
-//./generator --big-superposition > test.map && ./lem-in < test.map | ../ant_cop/./ant_cop

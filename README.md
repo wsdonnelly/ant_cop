@@ -1,12 +1,12 @@
-run make
+# Usage
+`make`
 
--Usage: pipe lem-in's out to ./ant_cop
-
-Example: (from lem_in dir, using the generator to seperate ant_cop dir):
-
-./generator --big-superposition > test.map && ./lem-in < test.map | ../ant_cop/./ant_cop
-
-Or copy the binary to lem-in's root......
+- lem-in's output can be piped to ant-cop
+- assume you're in the lem-in dir and ant_cop is in the same parent director
+- eg.
+`./lem-in < some.map | ../ant_cop/ant_cop`
+- the generator maps are quite useful for checking the output
+-eg. `./generator --big-superposition > test.map && ./lem-in < test.map | ../ant_cop/ant_cop`
 
 # ant_cop will check:
 - if the same ant appears twice on the same line
